@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"net"
+	"server/mysql"
 	"server/userinfo"
 )
 
@@ -47,6 +48,7 @@ func HandleChat(conn net.Conn) {
 		username,
 	})
 	// TODO: 验证用户名和密码
+	mysql.Insert(username, password)
 	ch := make(chan string)
 	go clientWriter(conn, ch)
 	ch <- "You are " + username
