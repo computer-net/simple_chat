@@ -39,10 +39,9 @@ func Broadcaster() {
 func HandleChat(conn net.Conn) {
 	defer conn.Close()
 	// 读取用户名和密码
-	username := userinfo.GetUsrinfo(conn)
-	fmt.Println(username)
-	password := userinfo.GetUsrinfo(conn)
-	fmt.Println(password)
+	username, password := userinfo.GetUserinfo(conn)
+	fmt.Println("username: " + username)
+	fmt.Println("password: " + password)
 	users = append(users, userinfo.Client{
 		conn,
 		username,

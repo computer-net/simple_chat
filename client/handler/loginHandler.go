@@ -15,8 +15,7 @@ func Login(username string, password string) {
 		log.Fatal(err)
 	}
 	// TODO: 验证用户名和密码
-	conn.Write([]byte(username + "\n"))
-	conn.Write([]byte(password + "\n"))
+	conn.Write([]byte(username + "\t" + password + "\n"))
 	// 开始聊天
 	startChat(conn)
 }

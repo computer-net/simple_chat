@@ -1,16 +1,19 @@
 package userinfo
 
 import (
+	"bufio"
 	"log"
 	"net"
+	"strings"
 )
 
-// GetUsrinfo : 获取用户信息
-func GetUsrinfo(conn net.Conn) string {
-	buf := make([]byte, 1024)
-	n, err := conn.Read(buf)
-	if n < 1 || err != nil {
+// GetUserinfo : 获取用户信息
+func GetUserinfo(conn net.Conn) (string, string) {
+	reader := bufio.NewReader(conn)
+	content, err := reader.ReadString('\n')
+	if err != nil {
 		log.Fatalln(err)
 	}
-	return string(buf[:n-1])
+	info := strings.Split(content, "\t")
+	return info[0], info[1]
 }

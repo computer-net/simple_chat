@@ -1,20 +1,15 @@
 package mysql
 
 import (
-	"fmt"
 	"log"
 	"strconv"
 )
 
 // Insert : 插入数据
 func Insert(username string, password string) {
-	insert_query := fmt.Sprintf(
-		"insert into userinfo (username, password) values(‘%s‘,‘%s’)",
-		username,
-		password,
-	)
-	log.Println("sql:", insert_query)
-	rows, err := DB.Exec(insert_query)
+	insertQuery := "insert into userinfo (username, password) values(?,?)"
+	log.Println("sql:", insertQuery)
+	rows, err := DB.Exec(insertQuery, username, password)
 	checkErr(err)
 	num, err := rows.RowsAffected()
 	checkErr(err)
