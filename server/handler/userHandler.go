@@ -67,11 +67,10 @@ func HandleChat(conn net.Conn) {
 		if strings.HasPrefix(content, "@@") { // 命令模式，私聊
 			res := strings.SplitN(content, " ", 2)
 			if v, ok := users.Load(res[0][2:]); ok {
-				fmt.Println(len(content))
-				if len(content) == 2 {
-					fmt.Fprintln(v.(userinfo.Client).Connection, content[1])
+				if len(res) == 2 {
+					fmt.Fprintln(v.(userinfo.Client).Connection, username+" say to you: "+res[1])
 				} else {
-					fmt.Fprintln(v.(userinfo.Client).Connection, username+"提到了你")
+					fmt.Fprintln(v.(userinfo.Client).Connection, username+" refer to you")
 				}
 			}
 		} else if strings.HasPrefix(content, "@q") { // 命令模式，断开连接
